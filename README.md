@@ -61,8 +61,8 @@ License
   },
   "servers": [
     {
-      "url": "TBA",
-      "description": "TBA"
+      "url": "/bomb",
+      "description": "?msg=[MESSAGE]&user=[USER_ID]&count=[COUNT]"
     }
   ]
 }
