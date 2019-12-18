@@ -14,19 +14,19 @@ $  sudo apt update
 $  sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools
 $  sudo apt install python3-venv
 $  cd /opt
-$  sudo git clone [TBA]
-$  sudo chown -hR www-data:www-data /opt/[TBA]
-$  sudo chmod 775 -Rf /opt/[TBA]/
-$  cd /opt/[TBA]
-$  sudo mv [TBA].service /etc/systemd/system/[TBA].service
-$  python3 -m venv [TBA]env
-$  source [TBA]env/bin/activate
+$  sudo git clone https://github.com/0x06060606/YOLO-Bomber.git
+$  sudo chown -hR www-data:www-data /opt/YOLO-Bomber
+$  sudo chmod 775 -Rf /opt/YOLO-Bomber/
+$  cd /opt/YOLO-Bomber
+$  sudo mv yolo.service /etc/systemd/system/yolo.service
+$  python3 -m venv yoloenv
+$  source yoloenv/bin/activate
 $  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4
 $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
-$  sudo systemctl start [TBA]
-$  sudo systemctl enable [TBA]
-$  sudo ln -s /opt/[TBA]/[TBA] /etc/nginx/sites-enabled
+$  sudo systemctl start yolo
+$  sudo systemctl enable yolo
+$  sudo ln -s /opt/YOLO-Bomber/yolo /etc/nginx/sites-enabled
 $  sudo systemctl restart nginx
 $  sudo ufw delete allow 5000
 $  sudo ufw allow 'Nginx Full'
@@ -36,7 +36,7 @@ $  sudo ufw allow 'Nginx Full'
 ```
 $  sudo add-apt-repository ppa:certbot/certbot
 $  sudo apt install python-certbot-nginx
-$  sudo certbot --nginx -d [TBA]
+$  sudo certbot --nginx -d [DOMAIN]
 ```
 
 License
