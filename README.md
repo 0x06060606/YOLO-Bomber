@@ -26,7 +26,7 @@ $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
 $  sudo systemctl start yolo
 $  sudo systemctl enable yolo
-$  sudo ln -s /opt/YOLO-Bomber/yolo /etc/nginx/sites-enabled
+$  sudo ln -s /opt/YOLO-Bomber/yoloHTTP /etc/nginx/sites-enabled
 $  sudo systemctl restart nginx
 $  sudo ufw delete allow 5000
 $  sudo ufw allow 'Nginx Full'
