@@ -21,7 +21,7 @@ $  cd /opt/YOLO-Bomber
 $  sudo mv yolo.service /etc/systemd/system/yolo.service
 $  python3 -m venv yoloenv
 $  source yoloenv/bin/activate
-$  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4
+$  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4 selenium
 $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
 $  sudo systemctl start yolo
