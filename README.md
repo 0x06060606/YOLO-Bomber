@@ -11,7 +11,7 @@ YOLO Bomber is just a project i started and finished when i was bored lul and i 
 ### Setup
 ```
 $  sudo apt update
-$  sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv firefox -y
+$  sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv xvfb firefox -y
 $  cd /opt
 $  sudo git clone https://github.com/0x06060606/YOLO-Bomber.git
 $  sudo chown -hR www-data:www-data /opt/YOLO-Bomber
@@ -20,7 +20,7 @@ $  cd /opt/YOLO-Bomber
 $  sudo mv yolo.service /etc/systemd/system/yolo.service
 $  python3 -m venv yoloenv
 $  source yoloenv/bin/activate
-$  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4 selenium
+$  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4 selenium pyvirtualdisplay
 $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
 $  sudo ln geckodriver /opt/YOLO-Bomber/yoloenv/bin/
