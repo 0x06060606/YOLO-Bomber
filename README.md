@@ -36,7 +36,7 @@ $  sudo ufw allow 'Nginx Full'
 ```
 $  sudo add-apt-repository ppa:certbot/certbot
 $  sudo apt install python-certbot-nginx
-$  sudo certbot --nginx -d [DOMAIN]
+$  sudo certbot --nginx -d yolo.soteria.cf
 ```
 
 License
@@ -83,7 +83,7 @@ SOFTWARE.
   },
   "servers": [
     {
-      "url": "/bomb",
+      "url": "https://yolo.soteria.cf/bomb",
       "description": "?msg=[MESSAGE]&user=[USER_ID]&count=[COUNT]"
     }
   ]
