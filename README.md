@@ -25,6 +25,7 @@ $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
 $  sudo ln geckodriver /opt/YOLO-Bomber/yoloenv/bin/
 $  sudo ln /usr/bin/Xvfb /opt/YOLO-Bomber/yoloenv/bin/
+$  sudo ln /usr/bin/xdpyinfo /opt/YOLO-Bomber/yoloenv/bin/
 $  sudo systemctl start yolo
 $  sudo systemctl enable yolo
 $  sudo ln -s /opt/YOLO-Bomber/yoloHTTP /etc/nginx/sites-enabled
