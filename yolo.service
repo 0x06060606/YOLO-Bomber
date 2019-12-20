@@ -1,0 +1,11 @@
+[Unit]
+Description=YOLO Bomber API Server Applet Service
+After=network.target
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/YOLO-Bomber
+Environment="PATH=/opt/YOLO-Bomber/yoloenv/bin"
+ExecStart=/opt/YOLO-Bomber/yoloenv/bin/uwsgi --ini yolo.ini --uid www-data --gid www-data
+[Install]
+WantedBy=multi-user.target
