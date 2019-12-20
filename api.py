@@ -123,11 +123,11 @@ def run(labelname=None):
         count=(str(request.args.get('count')))
     error+=("'}")
     if(goKill==0):
-	display.stop()
-	return (engine(msg, user, count, False))
+        display.stop()
+        return (engine(msg, user, count, False))
     else:
-	display.stop()
-	return (error)
+        display.stop()
+        return (error)
 @app.route('/')
 def index():
     return render_template('home.html')
