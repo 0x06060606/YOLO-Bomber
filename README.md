@@ -24,6 +24,7 @@ $  source yoloenv/bin/activate
 $  pip install wheel uwsgi flask requests flask_restful sqlalchemy bs4 selenium
 $  uwsgi --socket 0.0.0.0:5000 --protocol=http -w wsgi:app
 $  deactivate
+$  sudo export PATH=$PATH:/opt/YOLO-Bomber/geckodriver
 $  sudo systemctl start yolo
 $  sudo systemctl enable yolo
 $  sudo ln -s /opt/YOLO-Bomber/yoloHTTP /etc/nginx/sites-enabled
