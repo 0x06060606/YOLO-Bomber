@@ -1,4 +1,5 @@
 import json, requests, socket, urllib3, os, random
+from pyvirtualdisplay import Display
 from flask import Flask, request, jsonify, render_template, Markup, send_from_directory
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
@@ -17,6 +18,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from time import sleep
+display = Display(visible=0, size=(1024, 768))
+display.start()
 app = Flask(__name__, template_folder='./html')
 api = Api(app)
 def banner(a, b):
@@ -120,9 +123,11 @@ def run(labelname=None):
         count=(str(request.args.get('count')))
     error+=("'}")
     if(goKill==0):
-        return (engine(msg, user, count, False))
+	display.stop()
+	return (engine(msg, user, count, False))
     else:
-        return (error)
+	display.stop()
+	return (error)
 @app.route('/')
 def index():
     return render_template('home.html')
@@ -135,3 +140,4 @@ class null(Resource):
 api.add_resource(null, '/favicon.ico')
 if __name__ == '__main__':
      app.run(host='0.0.0.0')
+display.stop()
