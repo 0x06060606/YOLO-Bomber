@@ -1,5 +1,4 @@
 import json, requests, socket, urllib3, os, random
-from pyvirtualdisplay import Display
 from flask import Flask, request, jsonify, render_template, Markup, send_from_directory
 from flask_restful import Resource, Api
 from sqlalchemy import create_engine
@@ -18,8 +17,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.proxy import Proxy, ProxyType
 from time import sleep
-display = Display(visible=0, size=(1024, 768))
-display.start()
 app = Flask(__name__, template_folder='./html')
 api = Api(app)
 def banner(a, b):
@@ -44,15 +41,12 @@ def banner(a, b):
     elif(b=='loader'):
         print("""     [!] Loading...    """)
 def proxFox(a):
-	capabilities = webdriver.DesiredCapabilities().FIREFOX
-	capabilities["marionette"] = False
 	optFox = Options()
 	optFox.headless = a
 	proFox = webdriver.FirefoxProfile()
 	proFox.set_preference("general.useragent.override", "Mozilla/5.0 (iPhone; CPU iPhone OS 11_0 like Mac OS X) AppleWebKit/604.1.38 (KHTML, like Gecko) Version/11.0 Mobile/15A372 Safari/604.1")
 	proFox.update_preferences()
-	binary = FirefoxBinary(r'/usr/bin/firefox')
-	return webdriver.Firefox(capabilities=capabilities, firefox_binary=binary, options=optFox, firefox_profile=proFox)
+	return webdriver.Firefox(options= optFox, firefox_profile=proFox)
 def engine(a, b, c, d):
     try:
         if(d==True):
@@ -63,17 +57,27 @@ def engine(a, b, c, d):
         yoloMessage=(a)
         yolo=(b)
         driver.get("https://onyolo.com/m/"+str(yolo))
-        #driver.execute_script('var iframe = document.createElement(\'iframe\');iframe.style.display = "none";iframe.src = "about:blank";document.body.appendChild(iframe);')
+        driver.execute_script('var iframe = document.createElement("iframe");iframe.style.display = "none";iframe.src = "/?iframe=1";document.body.appendChild(iframe);')
         count=(0)
-        while(int(count)<int(c)):
-            if(d==True):
-                banner(count, 'flooder')
-            sleep(0.25)
-            message = driver.find_element_by_xpath("/html/body/div[4]/form/textarea")
-            message.send_keys(str(randint(int(random()), 999999))+str("  |   ")+str(yoloMessage)+str("   |  ")+str(randint(int(random()), 999999)))
-            driver.find_element_by_xpath("/html/body/div[4]/form/div[1]").click()
-            driver.refresh()
-            count+=(1)
+        if int(c) > 0:
+            neg=(False)
+        elif int(c) == 0:
+            neg=(False)
+        else:
+            neg=(True)
+        if(neg==False):
+            while(int(count)<int(c)):
+                if(d==True):
+                    banner(count, 'flooder')
+                sleep(0.25)
+                message = driver.find_element_by_xpath("/html/body/div[4]/form/textarea")
+                message.send_keys(str(randint(int(random()), 999999))+str("  |   ")+str(yoloMessage)+str("   |  ")+str(randint(int(random()), 999999)))
+                driver.find_element_by_xpath("/html/body/div[4]/form/div[1]").click()
+                driver.refresh()
+                count+=(1)
+        elif(neg==True):
+            system('taskkill /IM "firefox.exe" /F' if name=='nt' else 'pkill "geckodriver"')
+            return("{'msg': 'no_negative'}")
         driver.close()
         system('taskkill /IM "firefox.exe" /F' if name=='nt' else 'pkill "geckodriver"')
         return("{'msg': 'done'}")
@@ -81,12 +85,12 @@ def engine(a, b, c, d):
         if("list index out of range" in str(uwu)):
             print("     [!] "+argv[0]+" <message> <user_id>         ")
             system('taskkill /IM "firefox.exe" /F' if name=='nt' else 'pkill "geckodriver"')
-            return("{'error': 'arg'}")
+            return("{'error': 'no_args'}")
         if("Reached error page" in str(uwu)):
             print("     [!] Server did not connect!                 ")
             driver.close()
             system('taskkill /IM "firefox.exe" /F' if name=='nt' else 'pkill "geckodriver"')
-            return("{'error': 'server'}")
+            return("{'error': 'server_error'}")
         if("TypeError" in str(uwu)):
             print("     [!] Browser did not cleanup correctly!      ")
             driver.close()
@@ -123,10 +127,8 @@ def run(labelname=None):
         count=(str(request.args.get('count')))
     error+=("'}")
     if(goKill==0):
-        display.stop()
         return (engine(msg, user, count, False))
     else:
-        display.stop()
         return (error)
 @app.route('/')
 def index():
@@ -140,4 +142,3 @@ class null(Resource):
 api.add_resource(null, '/favicon.ico')
 if __name__ == '__main__':
      app.run(host='0.0.0.0')
-display.stop()
