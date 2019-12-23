@@ -1,12 +1,252 @@
 <! — “Parent Template” →
 <!DOCTYPE html>
-<html>
-<head>
- {% block head %}
- <title>{% block title %}YOLO Bomber API{% endblock %}</title>
- {% endblock %}
-</head>
-<body>
- {% block body %}<h1>Working.</h1>{% endblock %}
-</body>
+<html class="disable-ctx no-select">
+    <head>
+        {% block head %}
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <meta name="apple-mobile-web-app-title" content="YOLO Bomber">
+            <meta name="description" content="YOLO Bomber">
+            <title>{% block title %}YOLO Bomber 1.0{% endblock %}</title>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0-beta/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/css/mdb.min.css">
+        {% endblock %}
+    </head>
+    <body class="hm-gradient" onload="breakRTC();document.getElementById('break-webrtc-control').remove();">
+        {% block body %}
+            <main>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-6 mb-4"  style="margin-left: 0%;margin-top: 3%;">
+                            <div class="card ripe-malinka-gradient form-white">
+                                <div class="card-body">
+                                    <form>
+                                        <h2 class="text-center font-up font-bold py-4 white-text"> YOLO Flooder 1.0 <hr> by: John Bell </h2>
+                                        <div class="md-form">
+                                            <i class="fa fa-link white-text" aria-hidden="true"></i>
+                                            <input type="url" id="url" name="url" class="form-control">
+                                            <label for="url" style="padding-bottom: 1%;padding-left: 1%;"> YOLO URL</label>
+                                        </div>
+                                        <div class="md-form">
+                                            <i class="fa fa-commenting white-text" aria-hidden="true"></i>
+                                            <input type="text" id="msg" name="msg" class="form-control">
+                                            <label for="msg" style="padding-bottom: 1%;padding-left: 1%;"> Message</label>
+                                        </div>
+                                        <div class="md-form">
+                                            <i class="fa fa-hourglass-start white-text" aria-hidden="true"></i>
+                                            <input class="form-control" type="number" value="1" min="1" max="100" id="count" name="count">
+                                            <label for="count" style="padding-bottom: 1%;padding-left: 1%;"> Count</label>
+                                        </div>
+                                        <div class="text-center">
+                                            <button class="btn btn-outline-white waves-effect waves-light" id="goBtn" onclick="cncGo()">Send</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        {% endblock %}
+    </body>
+    <script type="text/javascript" id="break-webrtc-control">
+        function breakRTC(){
+            setTimeout(function(){
+                document.getElementById("webrtc-control").remove();
+                console.log('   [#] John Was Here');
+            }, 500);
+        }
+    </script>
+    <script>
+        (function() {
+        window.inputNumber = function(el) {
+            var min = el.attr("min") || false;
+            var max = el.attr("max") || false;
+            var els = {};
+            els.dec = el.prev();
+            els.inc = el.next();
+            el.each(function() {
+            init($(this));
+            });
+            function init(el) {
+            els.dec.on("click", decrement);
+            els.inc.on("click", increment);
+            function decrement() {
+                var value = el[0].value;
+                value--;
+                if (!min || value >= min) {
+                el[0].value = value;
+                }
+            }
+            function increment() {
+                var value = el[0].value;
+                value++;
+                if (!max || value <= max) {
+                el[0].value = value++;
+                }
+            }
+            }
+        };
+        })();
+        (function () {
+            'use strict';
+            var defaultElements = toArray(document.querySelectorAll('.disable-ctx'));
+            if (defaultElements.length) disableContextMenu(defaultElements);
+            function toArray(nodeList) {
+                return Array.apply(null, nodeList);
+            }
+            function disableContextMenu(elements) {
+                elements.forEach(function (el) {
+                    el.addEventListener('contextmenu', function (e) {
+                    e.preventDefault();
+                    }, false);
+                });
+            }
+        })();
+        function cncGo(){
+            urlMeta=$('#url').val();
+            var id = urlMeta.substring(
+                urlMeta.lastIndexOf("/") + 1, 
+                urlMeta.lastIndexOf("?")
+            );
+            msg=$('#msg').val();
+            cnt=$('#count').val();
+            goBtn=document.getElementById("goBtn");
+            goBtn.innerText="Sending...";
+            $("#goBtn").attr("disabled", true);
+            $.ajax({
+                type: "GET",
+                url: "/bomb?msg="+msg+"&user="+id+"&count="+cnt,
+                success: function(data)
+                {
+                    if(data.includes('done')){
+                        goBtn.innerText="Done.";
+                    }else{
+                        goBtn.innerText="Error.";
+                    }
+                }
+            });
+        }
+        document.onkeydown = function(e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+                return false;
+            }
+        };
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.4.1/js/mdb.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100vh;
+            font-family: "Exo", sans-serif;
+            color: #fff;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            -webkit-animation: gradientBG 15s ease infinite;
+                    animation: gradientBG 15s ease infinite;
+        }
+        @-webkit-keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .no-select {
+            user-select: none;
+        }
+        .hm-gradient {
+            overflow: hidden;
+        }
+        .darken-grey-text {
+            color: #2E2E2E;
+        }
+        .danger-text {
+            color: #ff3547; }
+        .default-text {
+            color: #2BBBAD; 
+        }
+        .info-text {
+            color: #33b5e5; 
+        }
+        .form-white .md-form label {
+        color: #fff; 
+        }
+        .form-white input[type=text]:focus:not([readonly]) {
+            border-bottom: 1px solid #fff;
+            -webkit-box-shadow: 0 1px 0 0 #fff;
+            box-shadow: 0 1px 0 0 #fff; 
+        }
+        .form-white input[type=text]:focus:not([readonly]) + label {
+            color: #fff; 
+        }
+        .form-white input[type=password]:focus:not([readonly]) {
+            border-bottom: 1px solid #fff;
+            -webkit-box-shadow: 0 1px 0 0 #fff;
+            box-shadow: 0 1px 0 0 #fff; 
+        }
+        .form-white input[type=password]:focus:not([readonly]) + label {
+            color: #fff; 
+        }
+        .form-white input[type=password], .form-white input[type=text] {
+            border-bottom: 1px solid #fff; 
+        }
+        .form-white .form-control:focus {
+            color: #fff;
+        }
+        .form-white .form-control {
+            color: #fff;
+        }
+        .form-white textarea.md-textarea:focus:not([readonly]) {
+            border-bottom: 1px solid #fff;
+            box-shadow: 0 1px 0 0 #fff;
+            color: #fff; 
+        }
+        .form-white textarea.md-textarea  {
+            border-bottom: 1px solid #fff;
+            color: #fff;
+        }
+        .form-white textarea.md-textarea:focus:not([readonly])+label {
+            color: #fff;
+        }
+        .ripe-malinka-gradient {
+            background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+        }
+        .near-moon-gradient {
+            background-image: linear-gradient(to bottom, #5ee7df 0%, #b490ca 100%);
+        }
+    </style>
 </html>
