@@ -11,7 +11,7 @@ YOLO Bomber is just a project i started and finished when i was bored lul and i 
 ### Setup
 ```
 $  sudo apt update
-$  sudo apt install python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv xvfb firefox -y
+$  sudo apt install  x11-utils python3-pip python3-dev build-essential libssl-dev libffi-dev python3-setuptools python3-venv xvfb firefox -y
 $  cd /opt
 $  sudo git clone https://github.com/0x06060606/YOLO-Bomber.git
 $  sudo chown -hR www-data:www-data /opt/YOLO-Bomber
